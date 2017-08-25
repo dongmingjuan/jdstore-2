@@ -1,0 +1,17 @@
+<div class="col-md-4 col-md-offset-4">
+  <h2>Edit a product</h2>
+  <hr>
+  <%= simple_form_for [:admin, @product] do |f| %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :quantity %>
+    <%= f.input :price %>
+    <%= f.input :image, as: :file %>
+    <% if @product.image.present? %>
+      <%= image_tag(@product.image.thumb.url, class: "thumbnail" )%>
+    <% else %>
+      <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail")%>
+    <% end %>
+    <%= f.submit "Submit", class: "btn btn-sm btn-primary"%>
+  <% end %>
+</div>
