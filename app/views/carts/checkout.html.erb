@@ -1,0 +1,47 @@
+<div class="row">
+ <div class="col-md-12">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Picture</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% current_cart.cart_items.each do |cart_item| %>
+          <tr>
+            <td><%= link_to(cart_item.product.title, product_path(cart_item.product))%></td>
+            <td><%= cart_item.product.description %></td>
+            <td>
+              <% if cart_item.product.image.present? %>
+                <%= image_tag(cart_item.product.image.thumb.url, class: "thumbnail")%>
+              <% else %>
+                <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail")%>
+              <% end %>
+            </td>
+            <td><%= cart_item.product.price%></td>
+            <td>
+              <%= cart_item.quantity%>
+            </td>
+          </tr>
+         <% end %>
+    </tbody>
+  </table>
+  <div class="total fix pull-right">
+   总计：<%= render_cart_total_price(current_cart)%>
+  </div>
+  <br>
+  <div class="order">
+    <%= simple_form_for @order do |f| %>
+    收件人    <%= f.input :billing_name %>
+    收件地址  <%= f.input :billing_address %>
+    寄件人    <%= f.input :shipping_name  %>
+    寄件地址   <%= f.input :shipping_address%>
+            <%= f.submit "确认生成订单", class: "btn btn-lg btn-danger"%>
+    <% end %>
+  </div>
+ </div>
+</div>
