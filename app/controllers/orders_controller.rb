@@ -22,6 +22,20 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @product_lists = @order.product_lists
   end
+  def pay_with_alipay
+    @order = Order.find(params[:id])
+    @order.make_payment!("alipay")
+    @order.pay!
+    flash[:notice] = "use alipay success"
+    redirect_to :back
+  end
+  def pay_with_wechat
+    @order = Order.find(params[:id])
+    @order.make_payment!("wechat")
+    @order.pay!
+    flash[:notice] = "use wechat succeess"
+    redirect_to :back
+  end
   private
   def order_params
     params.require(:order).permit(:billing_name, :billing_address, :shipping_name, :shipping_address)
