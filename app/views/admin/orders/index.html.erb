@@ -1,0 +1,19 @@
+<div class="col-md-12">
+  <table class="table table-ordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+       <tr>
+         <td><%= link_to(order.id, admin_order_path(order))%></td>
+         <td><%= order.user.email %></td>
+         <td><%= order.aasm_state%></td>
+       </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -24,16 +24,21 @@ class OrdersController < ApplicationController
   end
   def pay_with_alipay
     @order = Order.find(params[:id])
-    @order.make_payment!("alipay")
-    @order.pay!
+    @order.set_payment_with!("alipay")
+    @order.make_payment!
     flash[:notice] = "use alipay success"
     redirect_to :back
   end
   def pay_with_wechat
     @order = Order.find(params[:id])
-    @order.make_payment!("wechat")
-    @order.pay!
+    @order.set_payment_with!("wechat")
+    @order.make_payment!
     flash[:notice] = "use wechat succeess"
+    redirect_to :back
+  end
+  def pay
+    @order = Order.find(params[:id])
+    @order.make_payment!
     redirect_to :back
   end
   private
